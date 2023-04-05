@@ -1,0 +1,7 @@
+django==4.1
+djangorestframework==3.13.1
+django-cors-headers==3.14.0
+psycopg2-binary==2.9.6
+drf-yasg==1.21.5
+redis==4.5.4
+pillow==9.5.0
