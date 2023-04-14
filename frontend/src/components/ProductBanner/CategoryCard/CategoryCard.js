@@ -1,20 +1,16 @@
 
 import styles from './styles.module.css'
-import { Link } from "react-router-dom";
-
 
 const CategoryCard = ({category,photo,link})=>{
 
     return (
         <div className={styles.container}>
-         <h5>{category}</h5>
+            <div className={styles.product_image_wrapper}>
          <img src={photo} alt={photo}/>
-        <div>
-            <Link to={'/product'}
-            state={{category:category}}
-            >
-            see more
-            </Link>
+         </div>
+        <div className={styles.product_info}>
+            <p className={styles.product_name}>Nike Air Max 1</p>
+            <p className={styles.product_price}>120€</p>
         </div>
         </div>
     )

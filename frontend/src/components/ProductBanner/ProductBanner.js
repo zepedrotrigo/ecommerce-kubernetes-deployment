@@ -8,24 +8,28 @@ import CategoryCard from './CategoryCard/CategoryCard';
 const category = [
     {
         'id': 1,
-        'photo' : 'https://words.shenn.id/wp-content/uploads/2021/11/rgb-laptop-gamepad.jpg',
-        'category' : 'Games'
+        'photo' : 'https://m.media-amazon.com/images/I/614BVAAywBL._AC_UL1500_.jpg',
     },
     {
         'id': 2,
-        'photo' : 'https://ecommerce.ccc2020.fr/wp-content/uploads/2020/10/electronic-gadgets.jpeg',
-        'category' : 'Electronics'
+        'photo' : 'https://m.media-amazon.com/images/I/614BVAAywBL._AC_UL1500_.jpg',
     },
     {
         'id': 3,
-        'photo' : 'https://img1.exportersindia.com/product_images/bc-full/2018/8/5852971/computer-laptop-accessories-1535448292-4238297.jpeg',
-        'category' : 'Computer and Accesories'
+        'photo' : 'https://m.media-amazon.com/images/I/614BVAAywBL._AC_UL1500_.jpg',
     },
     {
         'id': 4,
-        'photo' : 'http://3.bp.blogspot.com/-GhNtwYQfpMA/Vk01xBM-ViI/AAAAAAAAAHo/KCLBVn4vrVY/s640/clothing-fashion-t-shirt-mockup-01-o.jpg',
-        'category' : 'Fashion'
+        'photo' : 'https://m.media-amazon.com/images/I/614BVAAywBL._AC_UL1500_.jpg',
     },
+    {
+        'id': 5,
+        'photo' : 'https://m.media-amazon.com/images/I/614BVAAywBL._AC_UL1500_.jpg',
+    },
+    {
+        'id': 6,
+        'photo' : 'https://m.media-amazon.com/images/I/614BVAAywBL._AC_UL1500_.jpg',
+    }
 ]
 
 
@@ -45,21 +49,10 @@ const ProductBanner = ()=>{
     return (
         <div className={styles.container}>
             <div className={styles.new_product_container}>
-                <h2>New Products</h2>
-                <div className={styles.new_product}>
-                    {items.slice(0,5).map((e,i)=>{
-                        return(
-                            <ProductCard
-                            key={i}
-                            item={e}
-                            />
-                        )
-                    })}
-                </div>
+                <h2>New Arrivals</h2>
                 <div className={styles.category_product_container}>
-                   <h2>Shop By Category</h2>
                    <div className={styles.category_product}>
-                   {category.slice(0,5).map((e,i)=>{
+                   {category.slice(0,6).map((e,i)=>{
                         return(
                             <CategoryCard
                             key={i}

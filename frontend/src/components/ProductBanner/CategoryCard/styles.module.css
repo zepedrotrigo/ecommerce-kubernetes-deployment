@@ -1,13 +1,38 @@
 .container {
-  background-color: beige;
-  margin-right: 40px;
   padding: 10px;
-  width: 150px;
+  width: 220px;
+  height: 250px;
   text-align: center;
 }
 
-.container img {
-  width: 130px;
-  height: 100px;
+.product_image_wrapper {
+  width: 100%;
+  height: 60%;
+}
+
+.product_image_wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product_name {
+  font-family: 'Poppins';
+  padding-top: 1rem;
+  text-transform: uppercase;
+  font-weight: 200;
+  letter-spacing: 2px;
+}
+
+.product_price {
+  font-family: 'Poppins';
+  text-transform: uppercase;
+  font-weight: 200;
+  letter-spacing: 2px;
+}
+
+.product_info {
+  width: 100%;
+  height: 40%;
 }
 /*# sourceMappingURL=styles.module.css.map */
