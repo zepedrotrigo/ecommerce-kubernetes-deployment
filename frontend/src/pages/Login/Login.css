@@ -55,9 +55,16 @@
     padding: 10px;
     background-color: #4285f4;
     color: #fff;
-    border: none;
     border-radius: 5px;
+    border: solid 2px #4285f4;
     cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #fff;
+    color: #4285f4;
+    border: solid 2px #4285f4;
+    outline: #4285f4;
 }
 
 .forgot-password {
