@@ -47,7 +47,7 @@ const Signup = () => {
         <div className="login-page">
             <div className="left-image"></div>
             <div className="right-inputs">
-                <div className="login-form">
+                <div className="login-form animate__animated animate__zoomIn animate__fast">
                     <h3 style={{marginBottom: '1.5rem'}}>Sign Up</h3>
                     <form onSubmit={e => onClick(e)} className="signup-form">
                         <div>

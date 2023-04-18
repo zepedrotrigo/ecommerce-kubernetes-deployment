@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { login } from "../../actions/authActions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import 'animate.css';
 import './Login.css';
 
 const Login = () => {
@@ -32,7 +33,7 @@ const Login = () => {
         <div className="login-page">
             <div className="left-image"></div>
             <div className="right-inputs">
-                <div className="login-form">
+                <div className="login-form animate__animated animate__zoomIn animate__fast">
                     <h3>Login</h3>
                         <input 
                         className="email-input"
