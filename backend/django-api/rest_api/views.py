@@ -7,6 +7,10 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics,filters
 from rest_framework.decorators import api_view
 from drf_yasg.utils import swagger_auto_schema
+from django.shortcuts import get_object_or_404
+from django.http import Http404
+from django.http import FileResponse
+from io import BytesIO
 
 import os
 
@@ -63,8 +67,8 @@ def get_user(request,id):
 def product_list(request):
     if request.method == 'GET':
         products = Product.objects.all().order_by('create_at').reverse()
-        serializer = ProductSerializer(products,many=True)
-        return JsonResponse(serializer.data,safe=False)
+        serializer = ProductSerializer(products, many=True)
+        return JsonResponse(serializer.data, safe=False)
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = ProductSerializer(data=data)
@@ -450,3 +454,17 @@ def get_cart_item_by_cart_id(request,cartId):
     if request.method == 'GET':
         serializer = JoinSerializer(cartItem, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+
+@swagger_auto_schema(methods=['get'], operation_description="Get product image")
+@api_view(['GET'])
+def serve_product_image(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    image_data = product.thumbnail
+
+    # Check if image data exists
+    if image_data:
+        image_buffer = BytesIO(image_data)
+        return FileResponse(image_buffer, content_type='image/jpeg')
+    else:
+        raise Http404("Image not found")

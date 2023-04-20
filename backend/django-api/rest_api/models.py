@@ -15,7 +15,7 @@ class Product(models.Model):
     description = models.TextField(max_length=500)
     category = models.CharField(max_length=100)
     price = models.IntegerField()
-    thumbnail = models.CharField(max_length=100)
+    thumbnail = models.BinaryField(null=True, blank=True)
     stock = models.IntegerField()
     condition = models.CharField(max_length=100)
     rating = models.IntegerField()
