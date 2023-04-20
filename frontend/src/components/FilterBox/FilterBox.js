@@ -41,19 +41,19 @@ const FilterBox = ({applyFilter})=>{
             <input type="number" name="maxprice" placeholder='Max Price' onChange={e=>handlePrice(e)} value={maxprice} />
             <h3>Avg. Customer Review</h3>
             <div onClick={()=>handleRating(100)} className={rating === 100?styles.ratingStarSelected:styles.ratingStar}>
-                <Rating readonly={true} ratingValue={100} size={20} /><span>& up</span>
+                <Rating readonly={true} ratingValue={100} size={20} /><span> 5</span>
             </div>
             <div onClick={()=>handleRating(80)} className={rating === 80?styles.ratingStarSelected:styles.ratingStar}>
-                <Rating readonly={true} ratingValue={80} size={20} /><span>& up</span>
+                <Rating readonly={true} ratingValue={80} size={20} /><span> 4</span>
             </div>
             <div onClick={()=>handleRating(60)} className={rating === 60?styles.ratingStarSelected:styles.ratingStar}>
-                <Rating readonly={true} ratingValue={60} size={20} /><span>& up</span>
+                <Rating readonly={true} ratingValue={60} size={20} /><span> 3</span>
             </div>
             <div onClick={()=>handleRating(40)} className={rating === 40?styles.ratingStarSelected:styles.ratingStar}>
-                <Rating readonly={true} ratingValue={40} size={20} /><span>& up</span>
+                <Rating readonly={true} ratingValue={40} size={20} /><span> 2</span>
             </div>
             <div onClick={()=>handleRating(20)} className={rating === 20?styles.ratingStarSelected:styles.ratingStar}>
-                <Rating readonly={true} ratingValue={20} size={20} /><span>& up</span>
+                <Rating readonly={true} ratingValue={20} size={20} /><span >1</span>
             </div>
             <h3>Condition</h3>
             <div onClick={()=>handleCondition('New')} style={{fontWeight:condition == 'New'?'bold':400}}>
