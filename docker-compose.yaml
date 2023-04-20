@@ -14,8 +14,13 @@ services:
       - postgres_data:/var/lib/postgresql/data/
 
   redis:
-    image: redis:6
+    image: bitnami/redis:latest
     container_name: redis
+    environment:
+      - REDIS_PASSWORD=password123
+      - REDIS_PORT_NUMBER=7000
+    ports:
+      - '7000:7000'
 
   django:
     build: ./backend/django-api
