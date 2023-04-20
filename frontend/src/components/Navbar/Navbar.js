@@ -3,6 +3,8 @@ import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {  useEffect, useState} from "react";
 import { getCart } from "../../actions/cartActions";
+import settingsLogo from './settings.png';
+import loginLogo from './user-interface.png';
 
 let tokenParse = [];
 let tokenReady = false;
@@ -64,8 +66,8 @@ const Navbar = ()=>{
             <div className={styles.cart_container}>
                 <Link to={'/login'} style={{textDecoration:'none',color:'black'}}>
                     <div className={styles.login_signup}>
-                        {tokenReady?<img src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png" alt="user-icon" />:
-                        <img src='https://www.transparentpng.com/thumb/user/single-user-icon-png-free--rLHSHx.png' alt=''/>}
+                        {tokenReady?<img src={settingsLogo} alt="user-icon" />:
+                        <img src={loginLogo} alt=''/>}
                     </div>
                 </Link>
                 <div className={styles.cart}>
