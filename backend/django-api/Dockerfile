@@ -12,4 +12,8 @@ RUN pip install -r requirements.txt
 
 COPY . /app/
 
+# Make the entrypoint script executable
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["python", "manage.py", "runserver", "127.0.0.1:8000"]
