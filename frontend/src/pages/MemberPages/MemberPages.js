@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../actions/authActions";
 import { getStore, getUser } from "../../actions/userActions";
 import Navbar from '../../components/Navbar/Navbar';
+import sneaker from './sneakers.png';
 import StoreInfoPanel from '../../components/StoreInfoPanel/StoreInfoPanel';
 import CreadStoreForm from '../../components/CreadStoreForm/CreadStoreForm';
 
@@ -38,32 +39,36 @@ const MemberPages = ()=>{
             }
         }
 
-    },[dispatch,isLoading,store])
+    },[token])
 
     return (
        <>
             <Navbar />
             <div className={styles.container}>
-                <h1>Hi {user?.username}</h1>
-                <div>
-                    <ul>
-                        <li>Username : {isLoading?'Loading . . .':user?.username}</li>
+                <div className={styles.userHeader}>
+                <h1 className={styles.userWelcome}>Hi {user?.username}</h1>
+                <div className={styles.userWelcomeImgWrapper}>
+                    <img src={sneaker} alt='' />
+                </div>
+                </div>
+                <div className={styles.infoContainer}>
+                    <ul className={styles.userInfoWrapper}>
+                        <div>
+                        <li style={{marginBottom: '2rem'}}>Username : {isLoading?'Loading . . .':user?.username}</li>
                         <li>Email : {isLoading?'Loading . . .':user?.email}</li>
-                        <li>Phone : {isLoading?'Loading . . .':user?.phone}</li>
+                        </div>
+                        <div>
+                        <li style={{marginBottom: '2rem'}}>Phone : {isLoading?'Loading . . .':user?.phone}</li>
                         <li>Address : {isLoading?'Loading . . .':user?.address}</li>
+                        </div>
                     </ul>
                 </div>
             </div>
-            <div>
-                <h5>{storeCreated?'Your Store':'Become a seller'}</h5>
-                {storeCreated?<span></span>:showForm?<div></div>:<button onClick={()=>setShowForm(true)}>Create Store</button>}
-                {storeCreated?<StoreInfoPanel store={store} loading={isLoading} />:showForm?<CreadStoreForm />:<span></span>}
-            </div>
-            <div>
+            <div className={styles.logoutButtonWrapper}>
                 <br />
                 <br />
                 <br />
-                <button onClick={onClick}>Logout</button>
+                <button className={styles.logoutButton} onClick={onClick}>Logout</button>
             </div>
        </>
     )
