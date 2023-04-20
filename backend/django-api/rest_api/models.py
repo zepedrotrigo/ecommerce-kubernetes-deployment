@@ -10,15 +10,9 @@ class User(models.Model):
     phone = models.IntegerField()
     create_at = models.DateTimeField(auto_now_add=True)
 
-class Store(models.Model):
-    userId = models.ForeignKey(User,on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    create_at = models.DateTimeField(auto_now_add=True)
-
 class Product(models.Model):
     title = models.CharField(max_length=500)
     description = models.TextField(max_length=500)
-    storeId = models.ForeignKey(Store,on_delete=models.CASCADE)
     category = models.CharField(max_length=100)
     price = models.IntegerField()
     thumbnail = models.CharField(max_length=100)

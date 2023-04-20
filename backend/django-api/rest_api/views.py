@@ -303,33 +303,6 @@ class search_product(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-
-@csrf_exempt
-@swagger_auto_schema(methods=['post'], operation_description="Create a new store", request_body=StoreSerializer)
-@api_view(['POST'])
-def create_store(request):
-    if request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = StoreSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
-
-
-@csrf_exempt
-@swagger_auto_schema(methods=['get'], operation_description="Get store by user id")
-@api_view(['GET'])
-def get_store(request,userId):
-    try:
-        store = Store.objects.filter(userId=userId)
-    except:
-        return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = StoreSerializer(store, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
 class upload_file(generics.CreateAPIView):
     queryset = FileUpload.objects.all()
     serializer_class = FileUploadSerializer

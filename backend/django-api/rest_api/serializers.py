@@ -9,18 +9,12 @@ class UserSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id','title','description','storeId','category','price','thumbnail','stock','condition','rating','create_at']
+        fields = ['id','title','description','category','price','thumbnail','stock','condition','rating','create_at']
 
 class ProductImgSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImg
         fields = ['id','productId','url']
-
-
-class StoreSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Store
-        fields = ['id','userId','name','create_at']
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:

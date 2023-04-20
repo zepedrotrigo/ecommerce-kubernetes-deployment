@@ -5,8 +5,6 @@ urlpatterns = [
     path('user/', create_user),
     path('user/<int:id>/', get_user),
     path('showItemsCart/<int:cartId>/', get_cart_item_by_cart_id),
-    path('store/', create_store),
-    path('store/<int:userId>/', get_store),
     path('login/<str:email>/', check_login),
     path('product/', product_list),
     path('product/find', search_product.as_view()),

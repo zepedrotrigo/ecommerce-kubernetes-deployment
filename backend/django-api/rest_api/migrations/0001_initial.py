@@ -52,26 +52,12 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Store',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('create_at', models.DateTimeField(auto_now_add=True)),
-                ('userId', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rest_api.user')),
-            ],
-        ),
-        migrations.CreateModel(
             name='ProductImg',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('url', models.CharField(max_length=200)),
                 ('productId', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rest_api.product')),
             ],
-        ),
-        migrations.AddField(
-            model_name='product',
-            name='storeId',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rest_api.store'),
         ),
         migrations.CreateModel(
             name='CartItem',

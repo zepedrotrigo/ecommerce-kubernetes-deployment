@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='thumbnail',
-            field=models.CharField(default=1, max_length=100),
+            field=models.BinaryField(),
             preserve_default=False,
         ),
     ]
