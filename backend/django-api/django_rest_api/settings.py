@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'sneaker-store',
         'USER': 'admin',
         'PASSWORD': 'admin123',
-        'HOST': 'postgres',
+        'HOST': 'postgres-svc',
         'PORT': '5432',
     }
 }
