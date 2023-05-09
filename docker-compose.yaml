@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: bitnami/postgresql:latest
-    container_name: postgres
+    container_name: postgres-svc
     environment:
       - POSTGRESQL_DATABASE=sneaker-store
       - POSTGRESQL_USERNAME=admin
@@ -11,7 +11,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/bitnami/postgresql
 
   redis:
     image: bitnami/redis:latest
@@ -24,7 +24,7 @@ services:
 
   django:
     build: ./backend/django-api
-    container_name: django
+    container_name: django-svc
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./backend/django-api:/app
