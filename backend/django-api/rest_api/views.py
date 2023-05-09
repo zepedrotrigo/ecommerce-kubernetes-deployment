@@ -4,13 +4,17 @@ from .serializers import *
 from django.http import HttpResponse,JsonResponse
 from rest_framework .parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework import generics,filters
+from rest_framework import generics,filters,status
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from drf_yasg.utils import swagger_auto_schema
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.http import FileResponse
 from io import BytesIO
+from django.core.cache import cache
+
+import time
 
 import os
 
@@ -306,6 +310,29 @@ class search_product(generics.ListAPIView):
     filter_backends = (filters.SearchFilter,)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def list(self, request, *args, **kwargs):
+        start = time.time()
+        # Generate a unique cache key based on the search query
+        cache_key = 'product_search:' + request.GET.get('search', '')
+
+        # Try to get the search results from the cache
+        data = cache.get(cache_key)
+
+        print("cached")
+
+        if data is None:
+            print("not cached")
+            # If the data is not in the cache, perform the search
+            response = super().list(request, *args, **kwargs)
+
+            if response.status_code == status.HTTP_200_OK:
+                # If the search was successful, store the results in the cache
+                data = response.data
+                cache.set(cache_key, data)
+
+        print("ola ", time.time() - start)
+        return Response(data)
 
 class upload_file(generics.CreateAPIView):
     queryset = FileUpload.objects.all()

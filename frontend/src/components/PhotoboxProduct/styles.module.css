@@ -28,10 +28,10 @@
 
 .container .bigImg {
   padding: 10px;
+  padding-left: 6rem;
 }
 
 .container .bigImg img {
-  height: 100%;
-  width: 400px;
+  height: 40%;
 }
 /*# sourceMappingURL=styles.module.css.map */

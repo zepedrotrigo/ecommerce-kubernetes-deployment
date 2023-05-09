@@ -84,7 +84,7 @@ export const getItemsCart = (cartId)=> async (dispatch)=>{
 }
 
 
-export const addItemToCart = (cartId, productId)=> async (dispatch)=>{
+export const addItemToCart = (cartId, productId, quantity)=> async (dispatch)=>{
 
     const config ={
         Headers:{
@@ -95,14 +95,14 @@ export const addItemToCart = (cartId, productId)=> async (dispatch)=>{
     await axios.get(`${process.env.REACT_APP_API_URL}api/cartItemDetectSameItem/${cartId}/${productId}/`,config).then(async(res)=>{
        
         if(res.data.length === 0){
-            await axios.post(`${process.env.REACT_APP_API_URL}api/cartItem/`,{"cartId" : cartId, "productId": productId, "quantity": 1},config).then((res2)=>{
+            await axios.post(`${process.env.REACT_APP_API_URL}api/cartItem/`,{"cartId" : cartId, "productId": productId, "quantity": quantity},config).then((res2)=>{
                 dispatch({
                     type: ADD_ITEM_TO_CART,
                     payload: res.data
                 })
             })
         }else{
-            await axios.put(`${process.env.REACT_APP_API_URL}api/cartItem/id/${res.data[0]?.id}/`,{"cartId" : cartId, "productId": productId, "quantity": res.data[0]?.quantity + 1},config)
+            await axios.put(`${process.env.REACT_APP_API_URL}api/cartItem/id/${res.data[0]?.id}/`,{"cartId" : cartId, "productId": productId, "quantity": res.data[0]?.quantity + parseInt(quantity)},config)
         }
 
 

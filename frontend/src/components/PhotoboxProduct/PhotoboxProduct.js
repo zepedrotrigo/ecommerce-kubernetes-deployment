@@ -16,7 +16,6 @@ const PhotoboxProduct = ({id})=>{
 
     const [imgHover,setImgHover] = useState(0)
 
-
     return (
         <div className={styles.container}>
             <div className={styles.smallImg}>
@@ -27,7 +26,7 @@ const PhotoboxProduct = ({id})=>{
                 })}
             </div>
             <div className={styles.bigImg}>
-                <img src={loading?'':items[imgHover]?.url} alt="big-img" />
+                <img src={`${process.env.REACT_APP_API_URL}api/images/${id}/`} alt="big-img" />
             </div>
         </div>
     )

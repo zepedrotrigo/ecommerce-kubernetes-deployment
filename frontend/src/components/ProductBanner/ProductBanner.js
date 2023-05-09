@@ -52,12 +52,13 @@ const ProductBanner = ()=>{
                 <h2>New Arrivals</h2>
                 <div className={styles.category_product_container}>
                    <div className={styles.category_product}>
-                   {category.slice(0,6).map((e,i)=>{
+                   {items.slice(0,4).map((e,i)=>{
                         return(
                             <CategoryCard
                             key={i}
-                            category={e.category}
-                            photo={e.photo}
+                            price={e.price}
+                            title={e.title}
+                            photo={e.thumbnail}
                             link={e.id}
                             />
                         )

@@ -36,7 +36,7 @@ const CartView = ()=>{
                     return(
                         <div key={i} className={styles.cartProduct}>
                             <h1>{i+1}. </h1>
-                            <img src={e.product_details.thumbnail} alt={"thumbnail-"+i} />
+                            <img src={`${process.env.REACT_APP_API_URL}api/images/${e.product_details.id}/`} alt={e.product_details.title} />
                             <div>
                                 <h2>{e.product_details?.title}</h2>
                                 <h3>${e.product_details.price}</h3>
