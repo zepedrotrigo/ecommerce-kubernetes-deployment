@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: django-deployment
   namespace: gic-group-9
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app: django
   replicas: 1
   template:
     metadata:
       labels:
-        app: nginx
+        app: django
     spec:
       containers:
-      - name: nginx
-        image: registry.deti:5000/gic/g9/react:latest
+      - name: django
+        image: registry.deti:5000/gic/g9/django:latest
         imagePullPolicy: Always
         resources:
           requests:
@@ -25,4 +25,4 @@ spec:
             memory: "128Mi"
             cpu: "250m"
         ports:
-        - containerPort: 8080
+        - containerPort: 8000

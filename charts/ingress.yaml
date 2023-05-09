@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sneakr-ingress
+  namespace: gic-group-9
+spec:
+  rules:
+  - host: sneakr.k3s
+    http:
+      paths:
+      - backend:
+          service:
+            name: nginx-svc
+            port:
+              name: http
+        path: /
+        pathType: Prefix
+  - host: sneakr-api.k3s
+    http:
+      paths:
+      - backend:
+          service:
+            name: django-svc
+            port:
+              name: http
+        path: /
+        pathType: Prefix
