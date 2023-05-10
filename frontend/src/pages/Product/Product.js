@@ -129,7 +129,7 @@ const Product = ()=>{
             if(category === ""){
                 dispatch(searchItems(keyword));
                 if(keyword === ""){
-                    dispatch(getItems('api/product'));
+                    dispatch(getItems('api/product/'));
                 }
             }else{
                 dispatch(getItemByCategory(`api/product/find/category/${category}/`));

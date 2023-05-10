@@ -123,3 +123,18 @@ export const deleteItemFromCart = (id)=> async (dispatch)=>{
         })
     })
 }
+
+export const buyNow = (cartId)=> async (dispatch)=>{
+    const config ={
+        Headers:{
+            'Content-Type' : 'application/json'
+        }
+    }
+
+    await axios.post(`${process.env.REACT_APP_API_URL}api/cart/buy/${cartId}/`,{"cartId": cartId},config).then((res)=>{
+        dispatch({
+            type: DELETE_FROM_CART,
+            payload: res.data
+        })
+    })
+}

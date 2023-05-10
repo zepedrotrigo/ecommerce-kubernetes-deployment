@@ -16,7 +16,6 @@ const DetailProduct = ()=>{
                 <DescriptionBoxProduct item={item} />
                 <BuyingBox productId={item?.id} stock={item?.stock} />
             </div>
-            <h1>DetailProduct</h1>
         </div>
     )
 }

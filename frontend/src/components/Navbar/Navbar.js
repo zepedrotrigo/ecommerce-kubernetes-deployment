@@ -3,6 +3,7 @@ import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {  useEffect, useState} from "react";
 import { getCart } from "../../actions/cartActions";
+import { resetFilter } from "../../actions/filterActions";
 import settingsLogo from './settings.png';
 import loginLogo from './user-interface.png';
 
@@ -29,7 +30,10 @@ const Navbar = ()=>{
             navigate('/product',{state:{keyword:keyword,category:''}});
         }
     }
-   
+
+    const rstFilter = ()=>{
+        dispatch(resetFilter());
+    }   
 
     useEffect(()=>{
         if(token !== null && token !== 'undefined'){
@@ -60,7 +64,7 @@ const Navbar = ()=>{
             </div>
             <Link to={'/'}>
                 <div className={styles.logo}>
-                    <img src="logo.png" alt="logo" />
+                    <img src="logo.png" alt="logo" onClick={rstFilter}/>
                 </div>
             </Link>
             <div className={styles.cart_container}>

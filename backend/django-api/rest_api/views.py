@@ -77,6 +77,7 @@ def product_list(request):
         data = JSONParser().parse(request)
         serializer = ProductSerializer(data=data)
         if serializer.is_valid():
+            print(serializer.data)
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
@@ -321,15 +322,19 @@ class search_product(generics.ListAPIView):
 
         print("cached")
 
-        if data is None:
+        if data is not None:
+            # If the data is in the cache, reset its TTL
+            cache.set(cache_key, data, 3600)
+        else:
             print("not cached")
             # If the data is not in the cache, perform the search
             response = super().list(request, *args, **kwargs)
 
             if response.status_code == status.HTTP_200_OK:
                 # If the search was successful, store the results in the cache
+                # and set a TTL of 5 minutes (300 seconds)
                 data = response.data
-                cache.set(cache_key, data)
+                cache.set(cache_key, data, 3600)
 
         print("ola ", time.time() - start)
         return Response(data)
@@ -495,3 +500,23 @@ def serve_product_image(request, product_id):
         return FileResponse(image_buffer, content_type='image/jpeg')
     else:
         raise Http404("Image not found")
+
+
+@csrf_exempt
+@swagger_auto_schema(methods=['post'], operation_description="Buy cart")
+@api_view(['POST'])
+def buy_cart(request, cartId):
+    try:
+        cart_items = CartItem.objects.filter(cartId=cartId)
+    except:
+        return HttpResponse(status=404)
+
+    if request.method == 'POST':
+        for cart_item in cart_items:
+            product = Product.objects.get(pk=cart_item.productId_id)
+            # Update the quantity of the product in the cart
+            new_quantity = cart_item.quantity # ... calculate the new quantity here  ...
+            product.stock = product.stock - new_quantity
+            product.save()
+            cart_item.delete()
+        return HttpResponse(status=201) 

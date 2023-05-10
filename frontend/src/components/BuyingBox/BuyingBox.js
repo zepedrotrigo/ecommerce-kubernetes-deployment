@@ -19,17 +19,16 @@ const BuyingBox = ({productId,stock})=>{
             dispatch(getCart(tokenParse?.id))
         }
     },[dispatch,token])
-   
 
     const addCart = (cartData,productId,quantity)=>{
         //dispatch(addToCart(tokenParse?.id,quantity));
         dispatch(addItemToCart(cartData?.id,productId,quantity));
     }
 
-
-
     return (
         <div className={styles.container}>
+            {stock === 0 ? <h2>OUT OF STOCK</h2> : 
+            <>
             <div className={styles.qty}>
                 <div>
                     <span>Stock : {stock}</span>
@@ -38,9 +37,7 @@ const BuyingBox = ({productId,stock})=>{
                 <input type="number" name="qty" max={stock} min={1} onChange={(e) => setQuantity(e.target.value)}/>
             </div>
             {loadingCartItem?<div>loading . . .</div>:<div onClick={()=>{addCart(cart,productId,quantity)}} className={styles.button}>Add to Cart</div>}
-            <div className={styles.button}>
-                Buy Now
-            </div>
+            </>}
         </div>
     )
 }

@@ -56,10 +56,7 @@ const ProductBanner = ()=>{
                         return(
                             <CategoryCard
                             key={i}
-                            price={e.price}
-                            title={e.title}
-                            photo={e.thumbnail}
-                            link={e.id}
+                            item={e}
                             />
                         )
                     })}

@@ -1,18 +1,25 @@
 
 import styles from './styles.module.css'
+import { Link } from "react-router-dom";
 
-const CategoryCard = ({price,title,photo,link})=>{
+const CategoryCard = ({ item })=>{
 
     return (
-        <div className={styles.container}>
-            <div className={styles.product_image_wrapper}>
-         <img src={`${process.env.REACT_APP_API_URL}api/images/${link}/`} alt={title} />
-         </div>
-        <div className={styles.product_info}>
-            <p className={styles.product_name}>{title}</p>
-            <p className={styles.product_price}>{price}$</p>
-        </div>
-        </div>
+        <Link
+            to={'/detail_product'}
+            style={{ textDecoration: 'none' }}
+            state={{ item: item }}
+        >
+            <div className={styles.container}>
+                <div className={styles.product_image_wrapper}>
+                <img src={`${process.env.REACT_APP_API_URL}api/images/${item.id}/`} alt={item.title} />
+                </div>
+                <div className={styles.product_info}>
+                    <p className={styles.product_name}>{item.title}</p>
+                    <p className={styles.product_price}>{item.price}$</p>
+                </div>
+            </div>
+        </Link>
     )
 }
 

@@ -20,4 +20,15 @@
   width: 200px;
   margin-right: 20px;
 }
+
+.button {
+  margin: 10px auto;
+  padding: 10px;
+  background-color: teal;
+  width: 100px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
 /*# sourceMappingURL=styles.module.css.map */

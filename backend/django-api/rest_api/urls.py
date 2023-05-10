@@ -32,4 +32,5 @@ urlpatterns = [
     path('filter/rating_and_condition/<int:rating>/<str:condition>/', filter_rating_and_condition),
     path('filter/<int:minprice>/<int:maxprice>/<int:rating>/<str:condition>/', filter_all),
     path('images/<int:product_id>/', serve_product_image, name='serve_image'),
+    path('cart/buy/<int:cartId>/', buy_cart),
 ]
