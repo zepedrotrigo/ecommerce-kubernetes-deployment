@@ -1,22 +1,33 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: postgres-deployment
+  name: postgres-statefulset
   namespace: gic-group-9
 spec:
+  serviceName: "postgres-service"
+  replicas: 1
   selector:
     matchLabels:
       app: postgres
-  replicas: 1
   template:
     metadata:
       labels:
         app: postgres
     spec:
+      initContainers:
+      - name: volume-permissions
+        image: busybox
+        command: ['sh', '-c', 'chown -R 1001:1001 /bitnami/postgresql']
+        volumeMounts:
+        - mountPath: /bitnami/postgresql
+          name: postgres-data
       containers:
         - name: postgres
           image: bitnami/postgresql:latest
           imagePullPolicy: Always
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /bitnami/postgresql
           resources:
             requests:
               memory: "32Mi"
@@ -33,3 +44,12 @@ spec:
               value: admin
             - name: POSTGRESQL_PASSWORD
               value: admin123
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: longhorn
+      resources:
+        requests:
+          storage: 1Gi
