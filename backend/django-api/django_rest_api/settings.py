@@ -98,7 +98,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:7000/1",  # Use the service name and port number
+        "LOCATION": "redis://redis-svc:7000/1",  # Use the service name and port number
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PASSWORD": "password123",  # Use the Redis password set in the environment variable
