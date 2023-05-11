@@ -26,3 +26,29 @@ spec:
             cpu: "250m"
         ports:
         - containerPort: 8000
+        env:
+        - name: DJANGO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: DJANGO_SECRET_KEY
+        - name: POSTGRES_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: POSTGRES_DBNAME
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: POSTGRES_USERNAME
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: POSTGRES_PASSWORD
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: REDIS_PASSWORD

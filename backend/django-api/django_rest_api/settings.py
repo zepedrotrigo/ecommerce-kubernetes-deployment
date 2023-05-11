@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9+@vfdf#gc!qs+pg+47rbz6jsv0%4$0!30#8%xm@+nz-5)7@yy'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "sneakr.k3s"]
 
@@ -87,9 +88,9 @@ WSGI_APPLICATION = 'django_rest_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sneaker-store',
-        'USER': 'admin',
-        'PASSWORD': 'admin123',
+        'NAME': os.environ.get('POSTGRES_DBNAME'),
+        'USER': os.environ.get('POSTGRES_USERNAME'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': 'postgres-svc',
         'PORT': '5432',
     }
@@ -101,7 +102,7 @@ CACHES = {
         "LOCATION": "redis://redis-svc:7000/1",  # Use the service name and port number
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": "password123",  # Use the Redis password set in the environment variable
+            "PASSWORD": os.environ.get('REDIS_PASSWORD'),  # Use the Redis password set in the environment variable
         }
     }
 }
