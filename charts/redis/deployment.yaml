@@ -1,13 +1,14 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: redis-deployment
+  name: redis-statefulset
   namespace: gic-group-9
 spec:
+  serviceName: "redis-service"
+  replicas: 1
   selector:
     matchLabels:
       app: redis
-  replicas: 1
   template:
     metadata:
       labels:
@@ -28,6 +29,9 @@ spec:
             - containerPort: 7000
           env:
             - name: REDIS_PASSWORD
-              value: password123
+              valueFrom:
+                secretKeyRef:
+                  name: django-secrets
+                  key: REDIS_PASSWORD
             - name: REDIS_PORT_NUMBER
               value: "7000"

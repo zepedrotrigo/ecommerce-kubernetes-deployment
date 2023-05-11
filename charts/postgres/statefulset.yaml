@@ -15,12 +15,12 @@ spec:
         app: postgres
     spec:
       initContainers:
-      - name: volume-permissions
-        image: busybox
-        command: ['sh', '-c', 'chown -R 1001:1001 /bitnami/postgresql']
-        volumeMounts:
-        - mountPath: /bitnami/postgresql
-          name: postgres-data
+        - name: volume-permissions
+          image: busybox
+          command: ["sh", "-c", "chown -R 1001:1001 /bitnami/postgresql"]
+          volumeMounts:
+            - mountPath: /bitnami/postgresql
+              name: postgres-data
       containers:
         - name: postgres
           image: bitnami/postgresql:latest
@@ -38,18 +38,27 @@ spec:
           ports:
             - containerPort: 5432
           env:
-            - name: POSTGRESQL_DATABASE
-              value: sneaker-store
-            - name: POSTGRESQL_USERNAME
-              value: admin
-            - name: POSTGRESQL_PASSWORD
-              value: admin123
+            - name: POSTGRES_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: django-secrets
+                  key: POSTGRES_DBNAME
+            - name: POSTGRES_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: django-secrets
+                  key: POSTGRES_USERNAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: django-secrets
+                  key: POSTGRES_PASSWORD
   volumeClaimTemplates:
-  - metadata:
-      name: postgres-data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: longhorn
-      resources:
-        requests:
-          storage: 1Gi
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 1Gi
