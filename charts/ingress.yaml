@@ -22,3 +22,13 @@ spec:
               name: http
         path: /api
         pathType: Prefix
+  - host: sneakr-monitoring.k3s
+    http:
+      paths:
+      - backend:
+          service:
+            name: grafana-svc
+            port:
+              name: http
+        path: /
+        pathType: Prefix

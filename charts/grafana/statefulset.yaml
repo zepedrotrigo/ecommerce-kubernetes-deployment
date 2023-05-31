@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: grafana-statefulset
+  namespace: gic-group-9
+spec:
+  serviceName: "grafana"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      initContainers:
+        - name: volume-permissions
+          image: busybox
+          command: ["sh", "-c", "chown -R 1001:1001 /opt/bitnami/grafana/data"]
+          volumeMounts:
+            - mountPath: /opt/bitnami/grafana/data
+              name: grafana-data
+      containers:
+      - name: grafana
+        image: bitnami/grafana:9.5.2
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: grafana-data
+            mountPath: /opt/bitnami/grafana/data
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "10m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 3000
+        env:
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secrets
+              key: GF_SECURITY_ADMIN_PASSWORD
+  volumeClaimTemplates:
+    - metadata:
+        name: grafana-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 128Mi
