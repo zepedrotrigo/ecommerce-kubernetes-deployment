@@ -33,6 +33,12 @@ services:
     depends_on:
       - postgres
       - redis
+    environment:
+    - POSTGRES_DBNAME=sneaker-store
+    - POSTGRES_USERNAME=admin
+    - POSTGRES_PASSWORD=admin123
+    - DJANGO_SECRET_KEY=django-secret-key
+    - REDIS_PASSWORD=password123
 
   react:
     build: ./frontend

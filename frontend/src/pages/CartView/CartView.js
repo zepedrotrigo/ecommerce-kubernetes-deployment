@@ -29,8 +29,17 @@ const CartView = ()=>{
     },[dispatch,token,cartId])
 
     const buyCart = ()=>{
-        dispatch(buyNow(cartId));
-        window.location.replace('/cartView');
+        let bol = true;
+        cartItem.map((e,i)=>{
+            if (e.quantity > e.product_details.stock) {
+                alert("Invalid quantity for product - " + e.product_details.title);
+                bol = false;
+            }
+        });
+        if (bol){
+            dispatch(buyNow(cartId));
+            window.location.replace('/cartView');
+        }
     } 
 
     const getTotal = ()=>{

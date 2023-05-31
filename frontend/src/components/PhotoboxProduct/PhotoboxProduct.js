@@ -4,7 +4,7 @@ import { getItemById } from '../../actions/itemActions';
 import styles from './styles.module.css'
 
 
-const PhotoboxProduct = ({id})=>{
+const PhotoboxProduct = ({id, thumbnail})=>{
     const {items,loading} = useSelector((state)=>state.itemReducer)
     const dispatch = useDispatch();
 

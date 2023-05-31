@@ -12,7 +12,7 @@ const DetailProduct = ()=>{
         <div>
             <Navbar />
             <div style={{display:'flex'}}>
-                <PhotoboxProduct id={item?.id} />
+                <PhotoboxProduct id={item?.id} thumbnail={item?.thumbnail}/>
                 <DescriptionBoxProduct item={item} />
                 <BuyingBox productId={item?.id} stock={item?.stock} />
             </div>

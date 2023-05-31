@@ -320,13 +320,12 @@ class search_product(generics.ListAPIView):
         # Try to get the search results from the cache
         data = cache.get(cache_key)
 
-        print("cached")
-
         if data is not None:
+            print("key " + cache_key + " - cached", end=" ")
             # If the data is in the cache, reset its TTL
             cache.set(cache_key, data, 3600)
         else:
-            print("not cached")
+            print("key " + cache_key + " - not cached", end=" ")
             # If the data is not in the cache, perform the search
             response = super().list(request, *args, **kwargs)
 
@@ -336,7 +335,7 @@ class search_product(generics.ListAPIView):
                 data = response.data
                 cache.set(cache_key, data, 3600)
 
-        print("ola ", time.time() - start)
+        print(f"Response time: {(time.time() - start)*1000:.1f}ms")
         return Response(data)
 
 class upload_file(generics.CreateAPIView):
@@ -491,15 +490,30 @@ def get_cart_item_by_cart_id(request,cartId):
 @swagger_auto_schema(methods=['get'], operation_description="Get product image")
 @api_view(['GET'])
 def serve_product_image(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    image_data = product.thumbnail
+    # Generate a unique cache key based on the search query
+    cache_key = 'product_image:' + str(product_id)
 
-    # Check if image data exists
-    if image_data:
-        image_buffer = BytesIO(image_data)
-        return FileResponse(image_buffer, content_type='image/jpeg')
+    # Try to get the search results from the cache
+    data = cache.get(cache_key)
+
+    if data is not None:
+        print("image cached")
+        # If the data is in the cache, reset its TTL
+        cache.set(cache_key, data, 3600)
+        return FileResponse(data, content_type='image/jpeg')
     else:
-        raise Http404("Image not found")
+        # If the data is not in the cache, perform the search
+        print("image not cached")
+        product = get_object_or_404(Product, pk=product_id)
+        image_data = product.thumbnail
+
+        # Check if image data exists
+        if image_data:
+            image_buffer = BytesIO(image_data)
+            cache.set(cache_key, image_buffer, 3600)
+            return FileResponse(image_buffer, content_type='image/jpeg')
+        else:
+            raise Http404("Image not found")
 
 
 @csrf_exempt
