@@ -53,6 +53,22 @@ spec:
                 secretKeyRef:
                   name: django-secrets
                   key: POSTGRES_PASSWORD
+          livenessProbe:
+            exec:
+              command:
+              - sh
+              - -c
+              - exec pg_isready --host localhost
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+              - sh
+              - -c
+              - exec pg_isready --host localhost
+            initialDelaySeconds: 30
+            periodSeconds: 10
   volumeClaimTemplates:
     - metadata:
         name: postgres-data

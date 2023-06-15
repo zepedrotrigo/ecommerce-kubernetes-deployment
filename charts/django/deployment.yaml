@@ -52,3 +52,15 @@ spec:
             secretKeyRef:
               name: django-secrets
               key: REDIS_PASSWORD
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 50
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 50
+          periodSeconds: 10
